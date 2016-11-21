@@ -15,6 +15,83 @@ namespace GiphyApiClientTestDrive
         
         public static void Main(string[] args)
         {
+            var input = string.Empty;
+            while (input != "3") 
+            {
+                Console.WriteLine(
+                    @"
+Press 1 for testing with AsyncHandles. 
+Press 2 for testing with tasks. 
+Press 3 to quit.");
+                
+                var key = Console.ReadKey();
+                input = key.KeyChar.ToString(); 
+                switch (input)
+                {                    
+                    case "1":
+                        TestWithHandles();                        
+                        break;
+                    case "2":
+                        TestWithTasks();                        
+                        break;
+                    case "3":                                                
+                    default: 
+                        break;
+                }
+                Console.WriteLine("done testing. Press a key");
+                Console.ReadKey();
+
+            }
+        }        
+
+        private static void TestWithTasks()
+        {
+            var config = new GiphyApiClientConfig();
+            var restClient = new RestClient(config.BaseUrl);
+            var giphyClient = new GiphyClient(restClient, config);
+
+            //tests.
+            Console.WriteLine("Performing Search Task...");
+            var searchTask = giphyClient.SearchAsyncTask(new SearchParams("Barf"));
+            var trendingTask = giphyClient.TrendingAsyncTask(new TrendingParams(contentRating: "pg-13"));
+            var translateTask = giphyClient.TranslateAsyncTask(new TranslateParams(search: "chewy", 
+                contentRating: null,
+                language: null,
+                format: null));
+            var randomTask = giphyClient.RandomAsyncTask(new RandomParams(limitingTag: null, contentRating: null, format: null));
+            var idTask = giphyClient.GifByIdAsyncTask(new GifByIdParams(gifId: "3oriNV6Cxf43fczQje"));
+            var idsTask = giphyClient.GifsByIdsAsyncTask(new GifsByIdParams(gifIds: new string[] {"3oriNV6Cxf43fczQje", "3oriNRqnlzW4LwLUqI"}));
+            
+            Task.WaitAll(searchTask, 
+                trendingTask,
+                translateTask, 
+                randomTask,
+                idTask, 
+                idsTask);
+
+            Console.WriteLine("\nGot all awaited results");
+            
+            Console.WriteLine("\nsearch task results");
+            HandleMultipleCallback(searchTask.Result, null);
+
+            Console.WriteLine("trending task results");
+            HandleMultipleCallback(trendingTask.Result, null);
+
+            Console.WriteLine("translate Task results");
+            HandleSingleCallback(translateTask.Result, null);
+
+            Console.WriteLine("random task results");
+            HandleRandomCallback(randomTask.Result, null);
+
+            Console.WriteLine("id task results");
+            HandleSingleCallback(idTask.Result, null);
+
+            Console.WriteLine("ids task results");
+            HandleMultipleCallback(idsTask.Result, null);
+        }
+
+        private static void TestWithHandles()
+        {
             var config = new GiphyApiClientConfig();
             var restClient = new RestClient(config.BaseUrl);
             var giphyClient = new GiphyClient(restClient, config);
@@ -84,54 +161,53 @@ namespace GiphyApiClientTestDrive
             Console.ReadKey();
             Console.WriteLine();
 
-        }        
+        }
 
+        private static void HandleMultipleCallback(IRestResponse<MultipleResult> response, RestRequestAsyncHandle requestHandle)                 
+        {                
 
-            private static void HandleMultipleCallback(IRestResponse<MultipleResult> response, RestRequestAsyncHandle requestHandle)                 
-            {                
-
-                Console.WriteLine($"got response {requestHandle?.ToString()}");
-                var responsedata = response?.Data?.data;
-                if (responsedata == null)
-                {
-                    Console.WriteLine("problem with method");
-                }
-                else
-                {
-                    foreach (var datum in responsedata)
-                    {
-                        Console.WriteLine(datum.images.fixed_height_small.url);
-                    }
-                }
-            }
-
-            private static void HandleSingleCallback(IRestResponse<SingleResult> response, RestRequestAsyncHandle requestHandle)
+            Console.WriteLine($"got response {requestHandle?.ToString()}");
+            var responsedata = response?.Data?.data;
+            if (responsedata == null)
             {
-                Console.WriteLine($"got response {requestHandle?.ToString()}");
-                var responsedata = response?.Data?.data;
-                if (responsedata == null)
-                {
-                    Console.WriteLine("problem with method");
-                }
-                else
-                {
-                    Console.WriteLine(responsedata.images.fixed_height_small.url);                
-                }
+                Console.WriteLine("problem with method");
             }
-
-            private static void HandleRandomCallback(IRestResponse<RandomResult> response, RestRequestAsyncHandle requestHandle)
+            else
             {
-                Console.WriteLine($"got response {requestHandle?.ToString()}");
-                var responsedata = response?.Data?.data;
-                if (responsedata == null)
+                foreach (var datum in responsedata)
                 {
-                    Console.WriteLine("problem with method");
-                }
-                else
-                {
-                    Console.WriteLine(responsedata.fixed_height_small_url);                
+                    Console.WriteLine(datum.images.fixed_height_small.url);
                 }
             }
+        }
+
+        private static void HandleSingleCallback(IRestResponse<SingleResult> response, RestRequestAsyncHandle requestHandle)
+        {
+            Console.WriteLine($"got response {requestHandle?.ToString()}");
+            var responsedata = response?.Data?.data;
+            if (responsedata == null)
+            {
+                Console.WriteLine("problem with method");
+            }
+            else
+            {
+                Console.WriteLine(responsedata.images.fixed_height_small.url);                
+            }
+        }
+
+        private static void HandleRandomCallback(IRestResponse<RandomResult> response, RestRequestAsyncHandle requestHandle)
+        {
+            Console.WriteLine($"got response {requestHandle?.ToString()}");
+            var responsedata = response?.Data?.data;
+            if (responsedata == null)
+            {
+                Console.WriteLine("problem with method");
+            }
+            else
+            {
+                Console.WriteLine(responsedata.fixed_height_small_url);                
+            }
+        }
 
         ///<remarks>
         /// This is just a dummy implementation of the config. a better way to implement it would be to read via a JSON file and use .NET core's built-in config support. 
