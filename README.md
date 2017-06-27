@@ -4,6 +4,8 @@ A .NET Core class library for consuming Giphy's JSON API.
 #### Version History:
 * 1.0.0 Created with basic Async methods.
 * 1.1.0 Added async/await versions of main search methods, clean up a bit from 1.0.0
+* 2.0.0 migration to new .csproj project format.  Also made the test project consume the package instead.
+
 
 ## Notes
 This uses RestSharp.NetCore (https://www.nuget.org/packages/RestSharp.NetCore/) to get the job done.   
