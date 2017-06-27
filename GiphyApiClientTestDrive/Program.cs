@@ -58,6 +58,7 @@ Press 3 to quit.");
                 contentRating: null,
                 language: null,
                 format: null));
+            
             var randomTask = giphyClient.RandomAsyncTask(new RandomParams(limitingTag: null, contentRating: null, format: null));
             var idTask = giphyClient.GifByIdAsyncTask(new GifByIdParams(gifId: "3oriNV6Cxf43fczQje"));
             var idsTask = giphyClient.GifsByIdsAsyncTask(new GifsByIdParams(gifIds: new string[] {"3oriNV6Cxf43fczQje", "3oriNRqnlzW4LwLUqI"}));
