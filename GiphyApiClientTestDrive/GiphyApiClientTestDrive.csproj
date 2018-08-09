@@ -8,12 +8,14 @@
     <PackageId>GiphyApiClientTestDrive</PackageId>
     <RuntimeFrameworkVersion>1.0.4</RuntimeFrameworkVersion>
     <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
+    <ReleaseVersion>2.0.0</ReleaseVersion>
+    <SynchReleaseVersion>false</SynchReleaseVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Runtime.Serialization.Formatters" Version="4.0.0-rc3-24212-01" />
     <PackageReference Include="RestSharp.NetCore" Version="105.2.3" />
-    <PackageReference Include="GiphyApiClient.NetCore" Version="2.0.0-a" />
+    <PackageReference Include="GiphyApiClient.NetCore" Version="2.0.0" />
+    <PackageReference Include="System.Runtime.Serialization.Formatters" Version="4.3.0" />
   </ItemGroup>
 
 </Project>
