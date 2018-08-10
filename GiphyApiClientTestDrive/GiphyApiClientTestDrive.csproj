@@ -1,21 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <VersionPrefix>2.0.0</VersionPrefix>
-    <TargetFramework>netcoreapp1.0</TargetFramework>
+    <VersionPrefix>2.1.0</VersionPrefix>
+    <VersionSuffix>-a</VersionSuffix>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
     <AssemblyName>GiphyApiClientTestDrive</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>GiphyApiClientTestDrive</PackageId>
-    <RuntimeFrameworkVersion>1.0.4</RuntimeFrameworkVersion>
-    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
-    <ReleaseVersion>2.0.0</ReleaseVersion>
+    <RuntimeFrameworkVersion>2.0.0</RuntimeFrameworkVersion>
+    <ReleaseVersion>2.1.0</ReleaseVersion>
     <SynchReleaseVersion>false</SynchReleaseVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="RestSharp.NetCore" Version="105.2.3" />
-    <PackageReference Include="GiphyApiClient.NetCore" Version="2.0.0" />
-    <PackageReference Include="System.Runtime.Serialization.Formatters" Version="4.3.0" />
+    <ProjectReference Include="..\GiphyApiClient.NetCore\GiphyApiClient.NetCore.csproj" />
   </ItemGroup>
-
 </Project>

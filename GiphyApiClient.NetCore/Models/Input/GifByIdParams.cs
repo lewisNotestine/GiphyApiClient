@@ -6,10 +6,6 @@ namespace GiphyApiClient.NetCore.Models.Input
     {
         public string id;
 
-        [Obsolete("for deserialization only")]
-        public GifByIdParams()
-        {}
-
         public GifByIdParams(string gifId)
         {
             id = gifId;

@@ -4,24 +4,11 @@ namespace GiphyApiClient.NetCore.Models.Input
 {
     public class TranslateParams
     {
-        public string s {get;set;}
-        public string rating { get; set;}
-        public string lang { get; set; }
-        public string fmt { get; set;}
+        public string s { get; private set; }
 
-
-        [ObsoleteAttribute("deserialization only")]
-        public TranslateParams()
-        {}
-
-        public TranslateParams(string search, string contentRating = null, string language = null, string format = null)
+        public TranslateParams(string search)
         {
             s = search;
-            rating = contentRating;
-            lang = language;
-            fmt = format;
         }
-
-
     }
 }
