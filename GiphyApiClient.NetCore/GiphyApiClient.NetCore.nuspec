@@ -8,7 +8,8 @@
 		<owners>Lewis Notestine</owners>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>A lightweight Giphy API client for consumption in .NET Core applications - uses a .NET Core port of the RestSharp library.</description>
-		<releaseNotes>Initial publication to NuGet.org.</releaseNotes>
+		<releaseNotes>Update version for .Net Core 2. Remove useless async APIs. Implement builder.</releaseNotes>
+		<projectUrl>https://github.com/lewisNotestine/GiphyApiClient</projectUrl>
 		<copyright>Copyright 2018</copyright>
 		<tags>Giphy API client REST</tags>
             <dependencies>
