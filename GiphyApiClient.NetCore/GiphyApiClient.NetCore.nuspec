@@ -2,7 +2,7 @@
 <package>
 	<metadata>
 		<id>GiphyApiClient.NetCore</id>
-		<version>2.1.0</version>
+		<version>3.0.0</version>
 		<title>GiphyApiClient.NetCore</title>
 		<authors>Lewis Notestine</authors>
 		<owners>Lewis Notestine</owners>

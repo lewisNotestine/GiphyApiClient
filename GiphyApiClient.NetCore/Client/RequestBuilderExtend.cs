@@ -9,10 +9,15 @@ namespace GiphyApiClient.NetCore.Client
     internal static class RequestBuilderExtend
     {
         //Resource names
-        private const string SEARCH = "search";
-        private const string TRENDING = "trending";
-        private const string TRANSLATE = "translate";
-        private const string RANDOM = "random";
+        private const string SEARCH = "gifs/search";
+        private const string TRENDING = "gifs/trending";
+        private const string TRANSLATE = "gifs/translate";
+        private const string RANDOM = "gifs/random";
+
+        private const string STICKERS_SEARCH = "stickers/search";
+        private const string STICKERS_TRENDING = "stickers/trending";
+        private const string STICKERS_TRANSLATE = "stickers/translate";
+        private const string STICKERS_RANDOM = "stickers/random";
 
         //Param names
         private const string Q = "q";
@@ -31,9 +36,9 @@ namespace GiphyApiClient.NetCore.Client
             return builder.AddParameter(API_KEY, apiKey, ParameterType.QueryString);
         }
 
-        public static RequestBuilder GetSearchRequest(this RequestBuilder builder, SearchParams searchParams)
+        private static RequestBuilder GetSearchRequest(this RequestBuilder builder, string resource, SearchParams searchParams )
         {
-            builder.ForResource(SEARCH)
+            builder.ForResource(resource)
                 .WithMethod(Method.GET)
                 .AddParameter(Q, searchParams.q, ParameterType.QueryString);
 
@@ -65,7 +70,17 @@ namespace GiphyApiClient.NetCore.Client
             return builder;
         }
 
-        public static RequestBuilder GetTrendingRequest(this RequestBuilder builder, TrendingParams trendingParams)
+        public static RequestBuilder GetSearchRequest(this RequestBuilder builder, SearchParams searchParams)
+        {
+            return builder.GetSearchRequest(SEARCH, searchParams);
+        }
+
+        public static RequestBuilder GetStickerSearchRequest(this RequestBuilder builder, SearchParams searchParams)
+        {
+            return builder.GetSearchRequest(STICKERS_SEARCH, searchParams);
+        }
+
+        private static RequestBuilder GetTrendingRequest(this RequestBuilder builder, string resource, TrendingParams trendingParams)
         {
             builder.ForResource(TRENDING)
                 .WithMethod(Method.GET);
@@ -88,9 +103,19 @@ namespace GiphyApiClient.NetCore.Client
             return builder;
         }
 
-        public static RequestBuilder GetTranslateRequest(this RequestBuilder builder, TranslateParams parms)
+        public static RequestBuilder GetTrendingRequest(this RequestBuilder builder, TrendingParams trendingParams)
         {
-            builder.ForResource(TRANSLATE)
+            return builder.GetTrendingRequest(TRENDING, trendingParams);
+        }
+
+        public static RequestBuilder GetStickerTrendingRequest(this RequestBuilder builder, TrendingParams trendingParams)
+        {
+            return builder.GetTrendingRequest(STICKERS_TRENDING, trendingParams);
+        }
+
+        private static RequestBuilder GetTranslateRequest(this RequestBuilder builder, string resource, TranslateParams parms)
+        {
+            builder.ForResource(resource)
                 .WithMethod(Method.GET)
                 .AddParameter(S, parms.s, ParameterType.QueryString);
 
@@ -112,11 +137,21 @@ namespace GiphyApiClient.NetCore.Client
             return builder;
         }
 
-        public static RequestBuilder GetRandomRequest(this RequestBuilder builder, RandomParams parms)
+        public static RequestBuilder GetTranslateRequest(this RequestBuilder builder, TranslateParams translateParams)
         {
-            builder.ForResource(RANDOM)
+            return builder.GetTranslateRequest(TRANSLATE, translateParams);
+        }
+
+        public static RequestBuilder GetStickerTranslateRequest(this RequestBuilder builder, TranslateParams translateParams)
+        {
+            return builder.GetTranslateRequest(STICKERS_TRANSLATE, translateParams);
+        }
+
+        private static RequestBuilder GetRandomRequest(this RequestBuilder builder, string resource, RandomParams parms)
+        {
+            builder.ForResource(resource)
                 .WithMethod(Method.GET);
-            
+
             if (!string.IsNullOrWhiteSpace(parms.tag))
             {
                 builder.AddParameter(TAG, parms.tag, ParameterType.QueryString);
@@ -135,12 +170,22 @@ namespace GiphyApiClient.NetCore.Client
             return builder;
         }
 
+        public static RequestBuilder GetRandomRequest(this RequestBuilder builder, RandomParams randomParams)
+        {
+            return builder.GetRandomRequest(RANDOM, randomParams);
+        }
+
+        public static RequestBuilder GetStickerRandomRequest(this RequestBuilder builder, RandomParams randomParams)
+        {
+            return builder.GetRandomRequest(STICKERS_RANDOM, randomParams);
+        }
+
         public static RequestBuilder GetSearchByIdRequest(this RequestBuilder builder, GifByIdParams parms)
         {
-            builder.ForResource(parms.id)
+            builder.ForResource($"gifs/{parms.id}")
                 .WithMethod(Method.GET);
             return builder;
-        }        
+        }
 
 
     }

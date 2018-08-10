@@ -21,6 +21,7 @@ namespace GiphyApiClient.NetCore.Models.Output
         public string url { get; set; }
         public string width { get; set; }
         public string height { get; set; }
+        public string size { get; set; }
     }
 
     public class FixedHeightDownsampled
@@ -50,6 +51,7 @@ namespace GiphyApiClient.NetCore.Models.Output
         public string url { get; set; }
         public string width { get; set; }
         public string height { get; set; }
+        public string size { get; set; }
     }
 
     public class FixedWidthDownsampled
@@ -77,6 +79,7 @@ namespace GiphyApiClient.NetCore.Models.Output
         public string url { get; set; }
         public string width { get; set; }
         public string height { get; set; }
+        public string size { get; set; }
     }
 
     public class FixedWidthSmall
@@ -94,6 +97,7 @@ namespace GiphyApiClient.NetCore.Models.Output
         public string url { get; set; }
         public string width { get; set; }
         public string height { get; set; }
+        public string size { get; set; }
     }
 
     public class Downsized
@@ -130,6 +134,7 @@ namespace GiphyApiClient.NetCore.Models.Output
         public string mp4_size { get; set; }
         public string webp { get; set; }
         public string webp_size { get; set; }
+        public string hash { get; set; }
     }
 
     public class OriginalStill
@@ -137,6 +142,7 @@ namespace GiphyApiClient.NetCore.Models.Output
         public string url { get; set; }
         public string width { get; set; }
         public string height { get; set; }
+        public string size { get; set; }
     }
 
     public class Images
