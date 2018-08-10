@@ -2,21 +2,35 @@ using System;
 
 namespace GiphyApiClient.NetCore.Models.Input
 {
-    public class RandomParams 
+    public class RandomParams
     {
-        public string tag;
-        public string rating;
-        public string fmt;
+        public string tag { get; private set; }
+        public string rating { get; private set; }
+        public string fmt { get; private set; }
 
-        [Obsolete("for deserialization")]
-        public RandomParams()
-        {}
-
-        public RandomParams(string limitingTag, string contentRating, string format = null)
+        public RandomParams(string limitingTag = null, string contentRating = null, string format = null)
         {
             tag = limitingTag;
             rating = contentRating;
             fmt = format;
+        }
+
+        public RandomParams WithTag(string tag)
+        {
+            this.tag = tag;
+            return this;
+        }
+
+        public RandomParams WithRating(string rating)
+        {
+            this.rating = rating;
+            return this;
+        }
+
+        public RandomParams WithFormat(string format)
+        {
+            this.fmt = format;
+            return this;
         }
     }
 }

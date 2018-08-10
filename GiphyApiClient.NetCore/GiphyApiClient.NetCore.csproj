@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <VersionPrefix>3.0.0</VersionPrefix>
-    <VersionSuffix>a</VersionSuffix>
+    <VersionSuffix>b</VersionSuffix>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <AssemblyName>GiphyApiClient.NetCore</AssemblyName>
     <PackageId>GiphyApiClient.NetCore</PackageId>

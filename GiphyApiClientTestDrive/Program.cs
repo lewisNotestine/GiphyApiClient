@@ -50,25 +50,34 @@ Press anything else to quit.");
             Console.WriteLine("\nPerforming gifs Tasks...");
 
 
-            var searchTask = await giphyClient.SearchAsync(new SearchParams("Barf"));
+            var searchTask = await giphyClient.SearchAsync(new SearchParams("Barf")
+                                                           .WithLimit(5)
+                                                           .WithOffset(2)
+                                                           .WithRating("g")
+                                                           .WithLanguage("fr"));
+            
             Console.WriteLine("\nsearch task results");
             HandleMultipleCallback(searchTask);
 
 
-            var trendingResult = await giphyClient.TrendingAsync(new TrendingParams(contentRating: "pg-13"));
+            var trendingResult = await giphyClient.TrendingAsync(new TrendingParams(contentRating: "pg-13")
+                                                                 .WithFormat("json")
+                                                                 .WithLimit(10)
+                                                                 .WithOffset(3)
+                                                                 .WithRating("g"));
             Console.WriteLine("trending task results");
             HandleMultipleCallback(trendingResult);
 
 
-            var translateResult = await giphyClient.TranslateAsync(new TranslateParams(search: "chewy",
-                contentRating: null,
-                language: null,
-                format: null));
+            var translateResult = await giphyClient.TranslateAsync(new TranslateParams(search: "chewy"));
             Console.WriteLine("translate Task results");
             HandleSingleCallback(translateResult);
 
 
-            var randomResult = await giphyClient.RandomAsync(new RandomParams(limitingTag: null, contentRating: null, format: null));
+            var randomResult = await giphyClient.RandomAsync(new RandomParams()
+                                                             .WithTag("kanye")
+                                                             .WithFormat("json")
+                                                             .WithRating("g"));
             Console.WriteLine("random task results");
             HandleRandomCallback(randomResult);
 
@@ -89,17 +98,24 @@ Press anything else to quit.");
             HandleMultipleCallback(searchStickersResult);
 
 
-            var trendingStickersResult = await giphyClient.StickerTrendingAsync(new TrendingParams(5, "pg-13", "json"));
+            var trendingStickersResult = await giphyClient.StickerTrendingAsync(new TrendingParams()
+                                                                                .WithFormat("json")
+                                                                                .WithLimit(10)
+                                                                                .WithOffset(0)
+                                                                                .WithRating("g"));
             Console.WriteLine("trending stickers results");
             HandleMultipleCallback(trendingStickersResult);
 
 
-            var translateStickersResult = await giphyClient.StickerTranslateAsync(new TranslateParams("larb", "pg-13", null, "json"));
+            var translateStickersResult = await giphyClient.StickerTranslateAsync(new TranslateParams("larb"));
             Console.WriteLine("translate stickers results");
             HandleSingleCallback(translateStickersResult);
 
 
-            var randomStickersResult = await giphyClient.StickerRandomAsync(new RandomParams(null, null));
+            var randomStickersResult = await giphyClient.StickerRandomAsync(new RandomParams()
+                                                                            .WithTag("beef")
+                                                                            .WithFormat("json")
+                                                                            .WithRating("g"));
             Console.WriteLine("random stickers results");
             HandleRandomCallback(randomStickersResult);
         }

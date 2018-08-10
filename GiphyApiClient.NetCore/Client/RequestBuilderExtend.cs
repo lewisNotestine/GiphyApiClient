@@ -90,6 +90,11 @@ namespace GiphyApiClient.NetCore.Client
                 builder.AddParameter(LIMIT, trendingParams.limit.Value, ParameterType.QueryString);
             }
 
+            if (trendingParams.offset.HasValue)
+            {
+                builder.AddParameter(OFFSET, trendingParams.offset.Value, ParameterType.QueryString);
+            }
+
             if (!string.IsNullOrEmpty(trendingParams.rating))
             {
                 builder.AddParameter(RATING, trendingParams.rating, ParameterType.QueryString);
@@ -118,21 +123,6 @@ namespace GiphyApiClient.NetCore.Client
             builder.ForResource(resource)
                 .WithMethod(Method.GET)
                 .AddParameter(S, parms.s, ParameterType.QueryString);
-
-            if (!string.IsNullOrWhiteSpace(parms.rating))
-            {
-                builder.AddParameter(RATING, parms.rating, ParameterType.QueryString);
-            }
-
-            if (!string.IsNullOrWhiteSpace(parms.lang))
-            {
-                builder.AddParameter(LANG, parms.lang, ParameterType.QueryString);
-            }
-
-            if (!string.IsNullOrWhiteSpace(parms.fmt))
-            {
-                builder.AddParameter(FMT, parms.fmt, ParameterType.QueryString);
-            }
 
             return builder;
         }
